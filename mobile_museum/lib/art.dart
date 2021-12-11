@@ -4,20 +4,20 @@ class Art {
   final String date;
   final String author;
   final String primaryImage;
-  final String primaryImageSmall;
+  //final String primaryImageSmall;
 
   //final List<String> tags;
 
-  const Art(this.id, this.title, this.date, this.author, this.primaryImage,
-      this.primaryImageSmall);
+  const Art(this.id, this.title, this.date, this.author, this.primaryImage);
 
   factory Art.fromJson(Map<String, dynamic> js) {
+    print("\t Responce got - ID: ${js["objectID"].toString()}");
     return Art(
         js["objectID"].toString(),
         js["title"] as String,
         js['objectDate'] as String,
         js['artistDisplayName'] as String,
-        js["primaryImage"] as String,
+        //js["primaryImage"] as String,
         js["primaryImageSmall"] as String);
   }
 }

@@ -1,5 +1,22 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter/widgets.dart';
+import 'package:mobile_museum/get_requests.dart';
+import 'package:mobile_museum/search_requests.dart';
+
+import 'art.dart';
+
+final styleTags = [
+  'Modernism',
+  'Impressionism',
+  'Expressionism',
+  'Abstract Art',
+  'Cubism',
+  'Surrealism'
+];
+
+const depprpl = Color(0xFF6200EA);
+
 void main() {
   runApp(const MyApp());
 }
@@ -11,7 +28,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Mobile Museum',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -22,9 +39,10 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.deepPurple,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      //home: const MyHomePage(title: 'Mobile Museum'),
+      home: SearchPage(),
     );
   }
 }
@@ -75,35 +93,35 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
+      body: Column(
+        children: [
+          Container(
+              height: 67.0,
+              padding: const EdgeInsets.symmetric(vertical: 15.0),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: styleTags.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                    decoration: const BoxDecoration(
+                      color: Color(0xFF6200EA),
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                        child: Text(styleTags[index],
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 17,
+                            )),
+                      ),
+                    ),
+                  );
+                },
+              )),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
