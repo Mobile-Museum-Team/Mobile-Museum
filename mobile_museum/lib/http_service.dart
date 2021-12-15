@@ -2,8 +2,14 @@ import 'dart:convert';
 
 import 'package:http/http.dart';
 import 'package:mobile_museum/art.dart';
+import 'package:html/parser.dart';
 
 class HttpService {
+  static const int pageSize = 10;
+  int page = 0;
+  String lastquery = "";
+  List<Art> resList = [];
+
   Future<Art> getObj(int id) async {
     final Uri url = Uri.https(
       'collectionapi.metmuseum.org',
@@ -22,16 +28,18 @@ class HttpService {
     }
   }
 
-  Future<List<Art>> searchObj(String query) async {
+  Future<List<Art>> searchObj(String query, {int page = 0}) async {
     final url = Uri.https(
       'collectionapi.metmuseum.org',
       'public/collection/v1/search',
-      {'q': query.toString(), 'departmentId': 11.toString()},
+      {'q': query.toString(), 'departmentId': "11"},
     );
+    lastquery = query;
     Response res = await get(url);
     if (res.statusCode == 200) {
       Map<String, dynamic> body = jsonDecode(res.body);
       List<dynamic> idList = body["objectIDs"].toList();
+      idList = SepArr(idList, pageSize)[page];
       List<Art> artList = [];
       for (var id in idList) {
         Art artIt = await getObj(id.toInt());
@@ -39,9 +47,44 @@ class HttpService {
 
         artList.add(artIt);
       }
-      return artList;
+      return resList;
     } else {
       throw "Err. Search from query - no response";
+    }
+  }
+
+  Future<void> NewSearchPage() async {
+    print("reached async");
+    page += 1;
+    var resLst = await searchObj(lastquery, page: page);
+    resList += resLst;
+  }
+
+  List<List<dynamic>> SepArr(List<dynamic> list, int size) {
+    int nArr = (list.length + size - 1) ~/ size;
+    int gi = 0;
+    List<List<dynamic>> newList = [];
+    for (int i = 0; i < nArr; ++i) {
+      List<dynamic> arr = [];
+      for (int j = 0; (j < size) && (gi < list.length); ++j) {
+        arr.add(list[gi]);
+        ++gi;
+      }
+      newList.add(arr);
+    }
+    return newList;
+  }
+
+  Future<void> htmlParser(Art artItem) async {
+    final responce = await Client().get(Uri.parse(
+        'https://www.metmuseum.org/art/collection/search/' +
+            artItem.id.toString()));
+    if (responce.statusCode == 200) {
+      var doc = parse(responce.body);
+      print(responce.body);
+      var link = doc.getElementsByClassName("nas nas--base").length;
+      var text = link.toString();
+      artItem.description = text;
     }
   }
 }

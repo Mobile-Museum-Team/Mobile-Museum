@@ -13,13 +13,10 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   final HttpService httpService = HttpService();
-  List<Art> resList = [];
   TextEditingController searchController = new TextEditingController();
 
   @override
   void initState() {
-    if (widget.query != "")
-      Future resList = httpService.searchObj(widget.query);
     searchController.text = widget.query;
     super.initState();
   }
@@ -39,17 +36,17 @@ class _SearchPageState extends State<SearchPage> {
                   Expanded(
                     child: TextField(
                       controller: searchController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: "search paintings",
                       ),
                     ),
                   ),
                   InkWell(
                       onTap: () async {
-                        var resLst =
+                        var res =
                             await httpService.searchObj(searchController.text);
                         setState(() {
-                          resList = resLst;
+                          httpService.resList = res;
                         });
                         print("performing search");
                       },
@@ -61,16 +58,27 @@ class _SearchPageState extends State<SearchPage> {
               ),
               Expanded(
                   //padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: GridView(
-                children: resList
-                    .map((artItem) => ArtItem(
-                        artItem.id, artItem.title, artItem.primaryImage))
-                    .toList(),
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 200,
-                    childAspectRatio: 2 / 2,
-                    crossAxisSpacing: 0,
-                    mainAxisSpacing: 0),
+                  child: NotificationListener<ScrollNotification>(
+                onNotification: (scrollNotification) {
+                  if (scrollNotification.metrics.pixels ==
+                      scrollNotification.metrics.maxScrollExtent) {
+                    print("scrolled till the end");
+                    httpService.NewSearchPage();
+                    setState(() {});
+                  }
+                  return true;
+                },
+                child: GridView(
+                  children: httpService.resList
+                      .map((artItem) => ArtItem(
+                          artItem.id, artItem.title, artItem.primaryImage))
+                      .toList(),
+                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 200,
+                      childAspectRatio: 1,
+                      crossAxisSpacing: 0,
+                      mainAxisSpacing: 0),
+                ),
               )),
             ],
           ),

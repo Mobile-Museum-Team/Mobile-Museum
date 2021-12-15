@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter/widgets.dart';
+import 'package:mobile_museum/art_view_page.dart';
 import 'package:mobile_museum/get_requests.dart';
 import 'package:mobile_museum/search_requests.dart';
 
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.deepPurple,
       ),
       //home: const MyHomePage(title: 'Mobile Museum'),
-      home: SearchPage(),
+      home: ArtViewPage(title: "Lisa"),
     );
   }
 }
