@@ -7,6 +7,8 @@ import 'package:html/parser.dart';
 class HttpService {
   static const int pageSize = 10;
   int page = 0;
+  int nPages = 0;
+  bool isLoading = false;
   String lastquery = "";
   List<Art> resList = [];
 
@@ -47,24 +49,28 @@ class HttpService {
 
         artList.add(artIt);
       }
-      return resList;
+      return artList;
     } else {
       throw "Err. Search from query - no response";
     }
   }
 
   Future<void> NewSearchPage() async {
-    print("reached async");
-    page += 1;
-    var resLst = await searchObj(lastquery, page: page);
-    resList += resLst;
+    if ((page < nPages) && (isLoading == false)) {
+      isLoading = true;
+      print("loading new page");
+      page += 1;
+      var resLst = await searchObj(lastquery, page: page);
+      resList += resLst;
+      isLoading = false;
+    }
   }
 
   List<List<dynamic>> SepArr(List<dynamic> list, int size) {
-    int nArr = (list.length + size - 1) ~/ size;
+    nPages = (list.length + size - 1) ~/ size - 1;
     int gi = 0;
     List<List<dynamic>> newList = [];
-    for (int i = 0; i < nArr; ++i) {
+    for (int i = 0; i < nPages; ++i) {
       List<dynamic> arr = [];
       for (int j = 0; (j < size) && (gi < list.length); ++j) {
         arr.add(list[gi]);
@@ -72,6 +78,7 @@ class HttpService {
       }
       newList.add(arr);
     }
+
     return newList;
   }
 
