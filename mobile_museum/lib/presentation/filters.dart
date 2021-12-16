@@ -55,7 +55,7 @@ class _FindPageState extends State<FindPage> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        backgroundColor: Colors.amber,
+        backgroundColor: Color(0xFFBC8F8F),
         title: Text(widget.title),
       ),
       body: Column(

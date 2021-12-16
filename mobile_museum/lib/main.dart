@@ -13,8 +13,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: ThemeData(
-          scaffoldBackgroundColor: Colors.orange[100],
-        ),
+            colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.amber),
+            scaffoldBackgroundColor: Color(0xFFFFFAFA)),
         title: 'Bottom Navigation Bar Tutorial',
         //home: Navigation(),
         home: BlocProvider(

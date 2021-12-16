@@ -5,13 +5,15 @@ import 'package:meta/meta.dart';
 part 'search_state.dart';
 
 class SearchCubit extends Cubit<SearchState> {
-  SearchCubit() : super(SearchState());
+  SearchCubit() : super(SearchState(progressBarActive: false));
 
   void startLoad() {
-    state.progressBarActive = true;
+    var newState = SearchState(progressBarActive: true);
+    emit(newState);
   }
 
   void stopLoad() {
-    state.progressBarActive = false;
+    var newState = SearchState(progressBarActive: false);
+    emit(newState);
   }
 }

@@ -1,18 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_museum/art.dart';
 import 'package:mobile_museum/logic/api/http_service.dart';
 
 class ArtViewPage extends StatefulWidget {
-  const ArtViewPage({Key? key, required this.title}) : super(key: key);
-  final String title;
+  const ArtViewPage({Key? key, required this.art}) : super(key: key);
+  final Art art;
 
   @override
   State<ArtViewPage> createState() => _ArtViewPageState();
 }
 
 class _ArtViewPageState extends State<ArtViewPage> {
-  Art art = Art("435874", "Mona Lisa, La Gioconda", "228", "Author",
-      "https://cs1.livemaster.ru/storage/c0/7b/e335a5db05bd9a854e828041a4dt--kartiny-i-panno-mona-liza-leonardo-da-vinchi-ruchnaya-kopiya-.jpg");
   @override
   Widget build(BuildContext context) {
     final HttpService httpService = HttpService();
@@ -25,7 +24,8 @@ class _ArtViewPageState extends State<ArtViewPage> {
               child: Container(
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage(art.primaryImage),
+                    image:
+                        new CachedNetworkImageProvider(widget.art.primaryImage),
                     //"https://www.rostmuseum.ru/upload/iblock/f9a/f9a2f70111b8d28f1b41e3fa3a63bacf.jpg"),
                     fit: BoxFit.cover,
                   ),
@@ -63,10 +63,10 @@ class _ArtViewPageState extends State<ArtViewPage> {
                       ),
                       child: Text.rich(
                         TextSpan(
-                          text: art.title,
+                          text: widget.art.title,
                           children: [
                             TextSpan(
-                              text: '\n' + art.author,
+                              text: '\n' + widget.art.author,
                               style: const TextStyle(
                                 fontWeight: FontWeight.w300,
                                 color: Colors.white,

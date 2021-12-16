@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_museum/presentation/art_view_page.dart';
 import '../art.dart';
@@ -31,10 +32,10 @@ class ArtItemState extends State<ArtItem> {
                     blurRadius: 5,
                     offset: Offset(2, 5),
                   ),
-                ],
-                //color: Colors.black,
+                ], //color: Colors.black,
                 image: DecorationImage(
-                  image: NetworkImage(widget.art.primaryImage),
+                  image:
+                      new CachedNetworkImageProvider(widget.art.primaryImage),
                   fit: BoxFit.cover,
                 ),
                 borderRadius: BorderRadius.circular(20),
@@ -45,7 +46,7 @@ class ArtItemState extends State<ArtItem> {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => ArtViewPage(title: "Lisa"),
+                    builder: (context) => ArtViewPage(art: widget.art),
                   ),
                 );
                 print("Container clicked");
@@ -81,14 +82,6 @@ class ArtItemState extends State<ArtItem> {
                 ),
               ),
             ),
-
-            //),
-            /*InkWell(
-              onTap: () {
-                print("Container clicked");
-              }, // Handle your callback
-              child: Container(height: 180, width: 170, color: Colors.red),
-            ),*/
           ],
         ),
       ),

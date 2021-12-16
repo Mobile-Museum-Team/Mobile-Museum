@@ -38,24 +38,21 @@ class _NavigationState extends State<Navigation> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-              backgroundColor: Colors.amber,
+              backgroundColor: Color(0xFFBC8F8F),
               icon: Icon(
-                Icons.home,
+                Icons.account_balance,
               ),
-              label: 'Home'),
+              label: 'Museum'),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
           BottomNavigationBarItem(
               icon: Icon(
-                Icons.circle,
-              ),
-              label: 'Find'),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.favorite,
+                Icons.bookmark_border,
               ),
               label: 'Favorite'),
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTap,
+        fixedColor: Color(0xFF780116),
         selectedFontSize: 13.0,
         unselectedFontSize: 13.0,
       ),

@@ -18,17 +18,29 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-          backgroundColor: Colors.amber,
-        ),
-        body: GridView(
-          children: DUMMY_DATA.map((artItem) => ArtItem(artItem)).toList(),
-          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 200,
-              childAspectRatio: 2 / 2,
-              crossAxisSpacing: 0,
-              mainAxisSpacing: 0),
-        ));
+      appBar:
+          AppBar(title: Text(widget.title), backgroundColor: Color(0xFFBC8F8F)),
+      body: Column(
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: Column(),
+              ),
+            ],
+          ),
+          Expanded(
+            child: GridView(
+              children: DUMMY_DATA.map((artItem) => ArtItem(artItem)).toList(),
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 200,
+                  childAspectRatio: 2 / 2,
+                  crossAxisSpacing: 0,
+                  mainAxisSpacing: 0),
+            ),
+          )
+        ],
+      ),
+    );
   }
 }

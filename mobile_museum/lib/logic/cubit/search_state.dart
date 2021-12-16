@@ -1,7 +1,7 @@
 part of 'search_cubit.dart';
 
 class SearchState {
-  bool progressBarActive = false;
+  final bool progressBarActive;
 
-  SearchState();
+  const SearchState({required this.progressBarActive});
 }
