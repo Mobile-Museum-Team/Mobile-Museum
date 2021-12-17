@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'art.dart';
 
-const DUMMY_DATA = [
+var DUMMY_DATA = [
   Art("1", "Mona Lisa, La Gioconda", "228", "f",
       "https://cs1.livemaster.ru/storage/c0/7b/e335a5db05bd9a854e828041a4dt--kartiny-i-panno-mona-liza-leonardo-da-vinchi-ruchnaya-kopiya-.jpg"),
   Art("1", "Mona Lisa, La Gioconda", "228", "f",

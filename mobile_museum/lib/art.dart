@@ -1,14 +1,17 @@
 class Art {
   final String id;
   final String title;
+  final String beginDate = "";
+  final String endDate = "";
   final String date;
   final String author;
   final String primaryImage;
+  String description = "No description";
   //final String primaryImageSmall;
 
   //final List<String> tags;
 
-  const Art(this.id, this.title, this.date, this.author, this.primaryImage);
+  Art(this.id, this.title, this.date, this.author, this.primaryImage);
 
   factory Art.fromJson(Map<String, dynamic> js) {
     print("\t Responce got - ID: ${js["objectID"].toString()}");
