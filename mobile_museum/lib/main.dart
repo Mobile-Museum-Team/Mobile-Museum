@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter/widgets.dart';
-import 'package:mobile_museum/art_view_page.dart';
-import 'package:mobile_museum/get_requests.dart';
-import 'package:mobile_museum/search_requests.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_museum/logic/cubit/search_cubit.dart';
+import 'package:mobile_museum/logic/navigation.dart';
 
 import 'art.dart';
-
 
 void main() {
   runApp(MyApp());
