@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_museum/presentation/art_item.dart';
 import 'package:mobile_museum/dummy_data.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 final styleTags = [
   'Modernism',
@@ -31,41 +32,56 @@ class _MyHomePageState extends State<MyHomePage> {
       color: Color(0xFFF2F4F3),
       child: CustomScrollView(
         slivers: <Widget>[
-          SliverAppBar(
+          const SliverAppBar(
             shadowColor: Colors.black,
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(25),
-            )),
-            backgroundColor: Color(0xFFBC8F8F),
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(25),
+              ),
+            ),
+            backgroundColor: Color(0xFF780116),
             floating: false,
             expandedHeight: 20.0,
             flexibleSpace: FlexibleSpaceBar(
-              title: Text('MobileMuseum'),
+              title: Text('Mobile Museum'),
             ),
           ),
           SliverList(
             delegate: SliverChildListDelegate(
               [
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(35.0, 35, 10, 19),
-                      child: Container(
-                        child: const Text.rich(
-                          TextSpan(
-                            text: 'Welcome \nto The Met',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF780116),
-                              fontSize: 30,
+                    Row(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(25, 55, 0, 25),
+                          child: Container(
+                            child: const Text.rich(
+                              TextSpan(
+                                text: 'Welcome \nto The Met\nMuseum of Art',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF780116),
+                                  fontSize: 25,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 20, 00, 0),
+                          child: Container(
+                            height: 180,
+                            width: 180,
+                            child: SvgPicture.network(
+                                'https://logotyp.us/files/the-met.svg'),
+                          ),
+                        )
+                      ],
                     ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(65, 10, 25, 10),
+                      padding: const EdgeInsets.fromLTRB(60, 0, 25, 30),
                       child: Container(
                         child: const Text.rich(
                           TextSpan(
@@ -95,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               margin:
                                   const EdgeInsets.symmetric(horizontal: 5.0),
                               decoration: const BoxDecoration(
-                                color: Color(0xFFFFDBDA),
+                                color: Color(0xFFec012a),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(15)),
                               ),
@@ -104,7 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 child: Center(
                                   child: Text(styleTags[index],
                                       style: const TextStyle(
-                                        color: Color(0xFF780116),
+                                        color: Color(0xFFFFFAFA),
                                         fontSize: 17,
                                       )),
                                 ),
@@ -156,7 +172,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 return ArtItem(DUMMY_DATA[index]);
                 DUMMY_DATA.map((artItem) => ArtItem(artItem)).toList();
               },
-              childCount: 10,
+              childCount: 15,
             ),
           ),
         ],

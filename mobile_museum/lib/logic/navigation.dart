@@ -1,9 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:mobile_museum/presentation/filters.dart';
+import 'package:mobile_museum/presentation/favorites.dart';
 import 'package:mobile_museum/presentation/home_page.dart';
 import 'package:mobile_museum/presentation/search_requests.dart';
+import 'package:shimmer/shimmer.dart';
 
 class Navigation extends StatefulWidget {
   @override
