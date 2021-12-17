@@ -39,6 +39,11 @@ class _FindPageState extends State<FindPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(25),
+          ),
+        ),
         backgroundColor: Color(0xFFBC8F8F),
         title: Text(widget.title),
       ),
