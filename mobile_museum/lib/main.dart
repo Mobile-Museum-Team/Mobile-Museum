@@ -14,7 +14,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         theme: ThemeData(
             colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.amber),
-            scaffoldBackgroundColor: Color(0xFFFFFAFA)),
+            scaffoldBackgroundColor: Color(0xFFFFFAFA),
+            backgroundColor: Color(0xFF5F2F7F)),
+        //backgroundColor: Color(0xFF5F2F7F),
         title: 'Bottom Navigation Bar Tutorial',
         //home: Navigation(),
         home: BlocProvider(
