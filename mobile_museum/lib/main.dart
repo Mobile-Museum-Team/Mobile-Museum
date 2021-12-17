@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
         ),
         //home: const MyHomePage(title: 'Mobile Museum'),
         //home: ArtViewPage(title: "Lisa"),
-        home: SearchPage());
+        home: const ArtViewPage(title: "Lisa"));
   }
 }
 

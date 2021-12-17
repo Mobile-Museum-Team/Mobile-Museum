@@ -1,6 +1,8 @@
 class Art {
   final String id;
   final String title;
+  final String beginDate = "";
+  final String endDate = "";
   final String date;
   final String author;
   final String primaryImage;
@@ -8,6 +10,10 @@ class Art {
   //final String primaryImageSmall;
 
   //final List<String> tags;
+
+  late var list = [
+    ["Creation years", date],
+  ];
 
   Art(this.id, this.title, this.date, this.author, this.primaryImage);
 
@@ -22,3 +28,5 @@ class Art {
         js["primaryImageSmall"] as String);
   }
 }
+
+//List<dynamic> getDataById(int id) {}
