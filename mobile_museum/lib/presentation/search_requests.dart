@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_museum/art.dart';
 import 'package:mobile_museum/logic/api/http_service.dart';
@@ -62,6 +63,8 @@ class _SearchPageState extends State<SearchPage> {
                       Expanded(
                         child: TextField(
                           controller: searchController,
+                          //focusNode: focusNode,
+                          autofocus: true,
                           decoration: const InputDecoration(
                             hintText: "search paintings",
                           ),
@@ -70,14 +73,40 @@ class _SearchPageState extends State<SearchPage> {
                       InkWell(
                           onTap: () async {
                             BlocProvider.of<SearchCubit>(context).startLoad();
-                            var resLst = await httpService
-                                .searchObj(searchController.text);
-                            resList = resLst;
+                            try {
+                              var resLst = await httpService
+                                  .searchObj(searchController.text);
+                              if (resLst != null) {
+                                resList = resLst;
+                                setState(() {
+                                  //resList = resLst;
+                                });
+                              }
+                            } on Exception catch (e) {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return CupertinoAlertDialog(
+                                      title: Text('No connection'),
+                                      content: Text(
+                                          'We were unable to load pieces from server. Check your internet conection and try again later.'),
+                                      actions: <Widget>[
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text('Close')),
+                                        // TextButton(
+                                        //   onPressed: () {
+                                        //     Navigator.pop(context);
+                                        //   },
+                                        //   child: Text('Reload'),
+                                        // )
+                                      ],
+                                    );
+                                  });
+                            }
                             BlocProvider.of<SearchCubit>(context).stopLoad();
-                            setState(() {
-                              //resList = resLst;
-                            });
-                            print("performing search");
                           },
                           child: Container(child: Icon(Icons.search)))
                     ],

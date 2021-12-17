@@ -26,34 +26,38 @@ class HttpService {
       //print("recieved");
       return recievedArt;
     } else {
-      throw "Err. Get by id - no response";
+      throw 228;
     }
   }
 
-  Future<List<Art>> searchObj(String query, {int page = 0}) async {
-    final url = Uri.https(
-      'collectionapi.metmuseum.org',
-      'public/collection/v1/search',
-      {'q': query.toString(), 'departmentId': "11"},
-    );
-    lastquery = query;
-    Response res = await get(url);
-    if (res.statusCode == 200) {
-      Map<String, dynamic> body = jsonDecode(res.body);
-      List<dynamic> idList = body["objectIDs"].toList();
-      //idList = SepArr(idList, pageSize)[page];
-      List<Art> artList = [];
-      artList = await Future.wait(idList.map((el) => getObj(el)));
+  Future<List<Art>?> searchObj(String query, {int page = 0}) async {
+    if (query != "") {
+      final url = Uri.https(
+        'collectionapi.metmuseum.org',
+        'public/collection/v1/search',
+        {'q': query.toString(), 'departmentId': "11"},
+      );
+      lastquery = query;
+      Response res = await get(url);
+      if (res.statusCode == 200) {
+        Map<String, dynamic> body = jsonDecode(res.body);
+        List<dynamic> idList = body["objectIDs"].toList();
+        //idList = SepArr(idList, pageSize)[page];
+        List<Art> artList = [];
+        artList = await Future.wait(idList.map((el) => getObj(el)));
 
-      // for (var id in idList) {
-      //   Art artIt = getObj(id.toInt());
-      //   print("\t\tAdding ID ${id.toInt()} to ArtList as Art obj");
+        // for (var id in idList) {
+        //   Art artIt = getObj(id.toInt());
+        //   print("\t\tAdding ID ${id.toInt()} to ArtList as Art obj");
 
-      //   artList.add(artIt);
-      // }
-      return artList;
+        //   artList.add(artIt);
+        // }
+        return artList;
+      } else {
+        throw 228;
+      }
     } else {
-      throw "Err. Search from query - no response";
+      return null;
     }
   }
 
@@ -63,7 +67,7 @@ class HttpService {
       print("loading new page");
       page += 1;
       var resLst = await searchObj(lastquery, page: page);
-      resList += resLst;
+      resList += resLst ?? [];
       isLoading = false;
     }
   }

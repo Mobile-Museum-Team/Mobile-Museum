@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_museum/art.dart';
 import 'package:mobile_museum/logic/api/http_service.dart';
+import 'package:mobile_museum/presentation/fullscreen_image_view.dart';
 
 class ArtViewPage extends StatefulWidget {
   const ArtViewPage({Key? key, required this.art}) : super(key: key);
@@ -29,54 +30,65 @@ class _ArtViewPageState extends State<ArtViewPage> {
         leadingWidth: 0,
         flexibleSpace: Stack(children: [
           Positioned(
-            child: FlexibleSpaceBar(
-              stretchModes: <StretchMode>[
-                StretchMode.zoomBackground,
-                StretchMode.fadeTitle,
-              ],
-              titlePadding:
-                  EdgeInsetsDirectional.only(start: 30, end: 10, bottom: 40),
-              centerTitle: false,
-              title: Container(
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.7),
-                      spreadRadius: 70,
-                      blurRadius: 120,
-                      offset: Offset(10, 50), // changes position of shadow
-                    ),
-                  ],
-                ),
-                child: Text.rich(
-                  TextSpan(
-                    text: widget.art.title,
-                    children: [
-                      TextSpan(
-                        text: '\n' + widget.art.author,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w300,
-                          color: Colors.white,
-                          fontSize: 10,
-                        ),
+            child: InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        FullsreenImageView(link: widget.art.primaryImage),
+                  ),
+                );
+                print("Container clicked");
+              },
+              child: FlexibleSpaceBar(
+                stretchModes: <StretchMode>[
+                  StretchMode.zoomBackground,
+                  StretchMode.fadeTitle,
+                ],
+                titlePadding:
+                    EdgeInsetsDirectional.only(start: 30, end: 10, bottom: 40),
+                centerTitle: false,
+                title: Container(
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.7),
+                        spreadRadius: 70,
+                        blurRadius: 120,
+                        offset: Offset(10, 50), // changes position of shadow
                       ),
                     ],
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      fontSize: 15,
-                    ),
                   ),
-                  textAlign: TextAlign.left,
+                  child: Text.rich(
+                    TextSpan(
+                      text: widget.art.title,
+                      children: [
+                        TextSpan(
+                          text: '\n' + widget.art.author,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w300,
+                            color: Colors.white,
+                            fontSize: 10,
+                          ),
+                        ),
+                      ],
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 15,
+                      ),
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
                 ),
+                background: DecoratedBox(
+                    position: DecorationPosition.foreground,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: new CachedNetworkImageProvider(
+                                widget.art.primaryImage),
+                            fit: BoxFit.cover))),
               ),
-              background: DecoratedBox(
-                  position: DecorationPosition.foreground,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: new CachedNetworkImageProvider(
-                              widget.art.primaryImage),
-                          fit: BoxFit.cover))),
             ),
             top: 0,
             left: 0,
