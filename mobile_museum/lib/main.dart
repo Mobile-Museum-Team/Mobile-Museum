@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_museum/logic/cubit/search_cubit.dart';
-import 'package:mobile_museum/presentation/search_requests.dart';
-import 'logic/navigation.dart';
+import 'package:mobile_museum/logic/navigation.dart';
+
+import 'art.dart';
 
 void main() {
   runApp(MyApp());
