@@ -58,76 +58,59 @@ class _SearchPageState extends State<SearchPage> {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: TextField(
-                          controller: searchController,
-                          //focusNode: focusNode,
-                          autofocus: true,
-                          decoration: const InputDecoration(
-                            hintText: "search paintings",
-                          ),
-                        ),
+                  Expanded(
+                    child: TextField(
+                      controller: searchController,
+                      //focusNode: focusNode,
+                      autofocus: true,
+                      decoration: const InputDecoration(
+                        hintText: "search paintings",
                       ),
-                      InkWell(
-                          onTap: () async {
-                            BlocProvider.of<SearchCubit>(context).startLoad();
-                            try {
-                              var resLst = await httpService
-                                  .searchObj(searchController.text);
-                              if (resLst != null) {
-                                resList = resLst;
-                                setState(() {
-                                  //resList = resLst;
-                                });
-                              }
-                            } on Exception catch (e) {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return CupertinoAlertDialog(
-                                      title: Text('No connection'),
-                                      content: Text(
-                                          'We were unable to load pieces from server. Check your internet conection and try again later.'),
-                                      actions: <Widget>[
-                                        TextButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: Text('Close')),
-                                        // TextButton(
-                                        //   onPressed: () {
-                                        //     Navigator.pop(context);
-                                        //   },
-                                        //   child: Text('Reload'),
-                                        // )
-                                      ],
-                                    );
-                                  });
-                            }
-                            BlocProvider.of<SearchCubit>(context).stopLoad();
-                          },
-                          child: Container(child: Icon(Icons.search)))
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 30,
+                    ),
                   ),
                   InkWell(
                       onTap: () async {
                         BlocProvider.of<SearchCubit>(context).startLoad();
-                        var resLst =
-                            await httpService.searchObj(searchController.text);
-                        resList = resLst;
+                        try {
+                          var resLst = await httpService
+                              .searchObj(searchController.text);
+                          if (resLst != null) {
+                            resList = resLst;
+                            setState(() {
+                              //resList = resLst;
+                            });
+                          }
+                        } on Exception catch (e) {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return CupertinoAlertDialog(
+                                  title: Text('No connection'),
+                                  content: Text(
+                                      'We were unable to load pieces from server. Check your internet conection and try again later.'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text('Close')),
+                                    // TextButton(
+                                    //   onPressed: () {
+                                    //     Navigator.pop(context);
+                                    //   },
+                                    //   child: Text('Reload'),
+                                    // )
+                                  ],
+                                );
+                              });
+                        }
                         BlocProvider.of<SearchCubit>(context).stopLoad();
-                        setState(() {
-                          //resList = resLst;
-                        });
-                        print("performing search");
                       },
                       child: Container(child: Icon(Icons.search)))
                 ],
+              ),
+              const SizedBox(
+                height: 30,
               ),
               const SizedBox(
                 height: 30,

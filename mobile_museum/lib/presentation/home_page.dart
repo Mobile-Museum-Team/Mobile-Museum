@@ -54,28 +54,31 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: <Widget>[
                     Row(
                       children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(25, 55, 0, 25),
-                          child: Container(
-                            child: const Text.rich(
-                              TextSpan(
-                                text: 'Welcome \nto The Met\nMuseum of Art',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF780116),
-                                  fontSize: 25,
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(25, 55, 0, 25),
+                            child: Container(
+                              child: const Text.rich(
+                                TextSpan(
+                                  text: 'Welcome \nto The Met\nMuseum of Art',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFF780116),
+                                    fontSize: 25,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 20, 00, 0),
-                          child: Container(
-                            height: 180,
-                            width: 180,
-                            child: SvgPicture.network(
-                                'https://logotyp.us/files/the-met.svg'),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 20, 00, 0),
+                            child: Container(
+                              height: 180,
+                              child: SvgPicture.network(
+                                  'https://logotyp.us/files/the-met.svg'),
+                            ),
                           ),
                         )
                       ],
