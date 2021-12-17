@@ -11,10 +11,6 @@ class Art {
 
   //final List<String> tags;
 
-  late var list = [
-    ["Creation years", date],
-  ];
-
   Art(this.id, this.title, this.date, this.author, this.primaryImage);
 
   factory Art.fromJson(Map<String, dynamic> js) {
@@ -28,5 +24,3 @@ class Art {
         js["primaryImageSmall"] as String);
   }
 }
-
-//List<dynamic> getDataById(int id) {}
