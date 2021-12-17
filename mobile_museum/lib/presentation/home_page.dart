@@ -29,7 +29,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xFFFFFAFA),
+      color: Color(0xFFF2F4F3),
       child: CustomScrollView(
         slivers: <Widget>[
           const SliverAppBar(
