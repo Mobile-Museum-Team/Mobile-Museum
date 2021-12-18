@@ -81,7 +81,7 @@ class _ArtViewPageState extends State<ArtViewPage> {
                   ),
                 ),
                 background: Hero(
-                  tag: -1,
+                  tag: widget.art.primaryImage,
                   child: DecoratedBox(
                       position: DecorationPosition.foreground,
                       decoration: BoxDecoration(
