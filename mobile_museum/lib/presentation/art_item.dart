@@ -23,6 +23,7 @@ class ArtItemState extends State<ArtItem> {
       child: Hero(
         tag: widget.art.primaryImage,
         child: Material(
+          color: Colors.transparent,
           child: Container(
             height: 180,
             width: 170,
