@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:mobile_museum/presentation/search_requests.dart';
 import 'package:mobile_museum/presentation/theme_colors.dart';
 
-import '../art.dart';
+import '../model/art.dart';
 
 final styleTags = [
   'Modernism',

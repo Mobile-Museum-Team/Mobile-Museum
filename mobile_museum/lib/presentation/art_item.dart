@@ -1,7 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_museum/presentation/art_view_page.dart';
-import '../art.dart';
+
+import '../model/art.dart';
 
 class ArtItem extends StatefulWidget {
   final Art art;

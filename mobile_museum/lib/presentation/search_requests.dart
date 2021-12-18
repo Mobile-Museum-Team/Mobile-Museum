@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_museum/art.dart';
 import 'package:mobile_museum/logic/api/http_service.dart';
 import 'package:mobile_museum/logic/cubit/search_cubit.dart';
 import 'package:mobile_museum/presentation/theme_colors.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../model/art.dart';
 import 'art_item.dart';
 
 class SearchPage extends StatefulWidget {

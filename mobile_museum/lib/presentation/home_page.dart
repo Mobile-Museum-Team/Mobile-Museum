@@ -1,18 +1,17 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mobile_museum/dummy_data.dart';
 import 'package:mobile_museum/logic/api/http_service.dart';
 import 'package:mobile_museum/logic/cubit/search_cubit.dart';
 import 'package:mobile_museum/presentation/art_item.dart';
-import 'package:mobile_museum/dummy_data.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile_museum/presentation/theme_colors.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../art.dart';
-
-import 'dart:io';
+import '../model/art.dart';
 
 final styleTags = [
   'Women',

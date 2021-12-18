@@ -1,8 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_museum/art.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mobile_museum/logic/api/http_service.dart';
 import 'package:mobile_museum/presentation/fullscreen_image_view.dart';
+
+import '../main.dart';
+import '../model/art.dart';
 
 class ArtViewPage extends StatefulWidget {
   const ArtViewPage({Key? key, required this.art}) : super(key: key);
@@ -13,6 +16,7 @@ class ArtViewPage extends StatefulWidget {
 }
 
 class _ArtViewPageState extends State<ArtViewPage> {
+  late final art = widget.art;
   bool isSelected = false;
 
   @override
@@ -150,6 +154,7 @@ class _ArtViewPageState extends State<ArtViewPage> {
                                 },
                               );
                             },
+                            art: art,
                           ),
                         ),
                       ),
@@ -296,7 +301,9 @@ class _ArtViewPageState extends State<ArtViewPage> {
 class IconToggleButton extends StatelessWidget {
   final bool isSelected;
   final Function onPressed;
-  IconToggleButton({required this.isSelected, required this.onPressed});
+  final Art art;
+  IconToggleButton(
+      {required this.isSelected, required this.onPressed, required this.art});
 
   @override
   Widget build(BuildContext context) {
@@ -311,11 +318,18 @@ class IconToggleButton extends StatelessWidget {
         padding: EdgeInsets.all(5),
         icon: Padding(
             padding: EdgeInsets.zero,
-            child: isSelected == true
-                ? Icon(Icons.star_sharp)
-                : Icon(Icons.star_border_outlined)),
+            child: ValueListenableBuilder<Box>(
+              valueListenable: artBox.listenable(keys: [art.id]),
+              builder: (context, box, child) => box.get(art.id) != null
+                  ? const Icon(Icons.star_sharp)
+                  : const Icon(Icons.star_border_outlined),
+            )),
         onPressed: () {
-          onPressed();
+          if (artBox.containsKey(art.id)) {
+            artBox.delete(art.id);
+          } else {
+            artBox.put(art.id, art);
+          }
         },
       ),
     );

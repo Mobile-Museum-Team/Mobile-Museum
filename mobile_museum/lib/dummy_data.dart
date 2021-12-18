@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'art.dart';
+
+import 'model/art.dart';
 
 var DUMMY_DATA = [
   Art(

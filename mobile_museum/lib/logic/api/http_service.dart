@@ -1,8 +1,9 @@
 import 'dart:convert';
 
-import 'package:http/http.dart';
-import 'package:mobile_museum/art.dart';
 import 'package:html/parser.dart';
+import 'package:http/http.dart';
+
+import '../../model/art.dart';
 
 class HttpService {
   static const int pageSize = 10;
