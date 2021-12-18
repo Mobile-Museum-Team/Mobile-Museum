@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter/widgets.dart';
-import 'package:mobile_museum/logic/get_requests.dart';
 import 'package:mobile_museum/presentation/search_requests.dart';
+import 'package:mobile_museum/presentation/theme_colors.dart';
 
 import '../art.dart';
 
@@ -15,7 +15,7 @@ final styleTags = [
   'Surrealism'
 ];
 
-const depprpl = Color(0xFF6200EA);
+//const depprpl = Color(0xFF6200EA);
 
 class FindPage extends StatefulWidget {
   const FindPage({Key? key, required this.title}) : super(key: key);
@@ -44,7 +44,7 @@ class _FindPageState extends State<FindPage> {
             bottom: Radius.circular(25),
           ),
         ),
-        backgroundColor: Color(0xFFBC8F8F),
+        backgroundColor: MyColors.mainTextColor,
         title: Text(widget.title),
       ),
       body: Column(

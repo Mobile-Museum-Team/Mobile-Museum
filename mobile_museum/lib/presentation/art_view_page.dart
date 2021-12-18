@@ -38,7 +38,6 @@ class _ArtViewPageState extends State<ArtViewPage> {
                         FullsreenImageView(link: widget.art.primaryImage),
                   ),
                 );
-                print("Container clicked");
               },
               child: FlexibleSpaceBar(
                 stretchModes: <StretchMode>[
@@ -113,42 +112,6 @@ class _ArtViewPageState extends State<ArtViewPage> {
       ),
       SliverList(
           delegate: SliverChildListDelegate([
-        // Padding(
-        //   padding: const EdgeInsets.symmetric(horizontal: 30.0),
-        //   child: Container(
-        //     decoration: BoxDecoration(
-        //       boxShadow: [
-        //         BoxShadow(
-        //           color: Colors.black.withOpacity(0.7),
-        //           spreadRadius: 70,
-        //           blurRadius: 120,
-        //           offset: Offset(10, 50), // changes position of shadow
-        //         ),
-        //       ],
-        //     ),
-        //     child: Text.rich(
-        //       TextSpan(
-        //         text: art.title,
-        //         children: [
-        //           TextSpan(
-        //             text: '\n' + art.author,
-        //             style: const TextStyle(
-        //               fontWeight: FontWeight.w300,
-        //               color: Colors.white,
-        //               fontSize: 15,
-        //             ),
-        //           ),
-        //         ],
-        //         style: TextStyle(
-        //           fontWeight: FontWeight.bold,
-        //           color: Colors.white,
-        //           fontSize: 20,
-        //         ),
-        //       ),
-        //       textAlign: TextAlign.left,
-        //     ),
-        //   ),
-        // ),
         DecoratedBox(
           decoration: const BoxDecoration(
             color: Colors.white,
