@@ -80,13 +80,16 @@ class _ArtViewPageState extends State<ArtViewPage> {
                     textAlign: TextAlign.left,
                   ),
                 ),
-                background: DecoratedBox(
-                    position: DecorationPosition.foreground,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: new CachedNetworkImageProvider(
-                                widget.art.primaryImage),
-                            fit: BoxFit.cover))),
+                background: Hero(
+                  tag: -1,
+                  child: DecoratedBox(
+                      position: DecorationPosition.foreground,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: CachedNetworkImageProvider(
+                                  widget.art.primaryImage),
+                              fit: BoxFit.cover))),
+                ),
               ),
             ),
             top: 0,

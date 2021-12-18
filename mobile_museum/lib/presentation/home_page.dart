@@ -1,21 +1,29 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_museum/logic/api/http_service.dart';
 import 'package:mobile_museum/presentation/art_item.dart';
 import 'package:mobile_museum/dummy_data.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile_museum/presentation/theme_colors.dart';
 
 final styleTags = [
-  'Modernism',
-  'Impressionism',
-  'Expressionism',
-  'Abstract Art',
-  'Cubism',
-  'Surrealism'
+  'Women',
+  'Men',
+  'Trees',
+  'Birds',
+  'Portraits',
+  'Flowers',
+  'Landscapes',
+  'Buildings',
+  'Horses',
+  'Angels',
+  'Female Nudses',
+  'Christ'
 ];
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  MyHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
@@ -26,6 +34,8 @@ class _MyHomePageState extends State<MyHomePage> {
   void _incrementCounter() {
     setState(() {});
   }
+
+  final HttpService httpService = HttpService();
 
   @override
   Widget build(BuildContext context) {
@@ -113,27 +123,91 @@ class _MyHomePageState extends State<MyHomePage> {
                         padding: const EdgeInsets.symmetric(vertical: 15.0),
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: styleTags.length,
+                          itemCount: styleTags.length + 1,
                           itemBuilder: (context, index) {
-                            return Container(
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 5.0),
-                              decoration: const BoxDecoration(
-                                color: Color(0xFFec012a),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15)),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Center(
-                                  child: Text(styleTags[index],
-                                      style: const TextStyle(
-                                        color: Color(0xFFFFFAFA),
-                                        fontSize: 17,
-                                      )),
+                            if (index == 0) {
+                              return InkWell(
+                                onTap: () {
+                                  // Navigator.of(context).push(
+                                  //   MaterialPageRoute(
+                                  //     builder: (context) => ArtViewPage(art: widget.art),
+                                  //   ),
+                                  // );
+                                  print("Container clicked");
+                                },
+                                child: Container(
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 5.0),
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xFFec012a),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(15)),
+                                  ),
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Center(
+                                      child: Icon(
+                                        Icons.home,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            );
+                              );
+                            } else {
+                              return InkWell(
+                                onTap: () async {
+                                  //BlocProvider.of<SearchCubit>(context).startLoad();
+                                  try {
+                                    var resLst = await httpService
+                                        .searchObj(styleTags[index - 1]);
+                                  } on Exception catch (e) {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return CupertinoAlertDialog(
+                                            title: Text('No connection'),
+                                            content: Text(
+                                                'We were unable to load pieces from server. Check your internet conection and try again later.'),
+                                            actions: <Widget>[
+                                              TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: Text('Close')),
+                                              // TextButton(
+                                              //   onPressed: () {
+                                              //     Navigator.pop(context);
+                                              //   },
+                                              //   child: Text('Reload'),
+                                              // )
+                                            ],
+                                          );
+                                        });
+                                  }
+                                  //BlocProvider.of<SearchCubit>(context).stopLoad();
+                                },
+                                child: Container(
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 5.0),
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xFFec012a),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(15)),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Center(
+                                      child: Text(styleTags[index - 1],
+                                          style: const TextStyle(
+                                            color: Color(0xFFFFFAFA),
+                                            fontSize: 17,
+                                          )),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }
                           },
                         ),
                       ),
