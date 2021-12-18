@@ -13,6 +13,8 @@ class ArtViewPage extends StatefulWidget {
 }
 
 class _ArtViewPageState extends State<ArtViewPage> {
+  bool isSelected = false;
+
   @override
   Widget build(BuildContext context) {
     final HttpService httpService = HttpService();
@@ -122,18 +124,38 @@ class _ArtViewPageState extends State<ArtViewPage> {
           //height: 700.0,
           //alignment: Alignment.topLeft,
           child: Padding(
-            padding: const EdgeInsets.only(left: 30),
+            padding: const EdgeInsets.only(left: 30, right: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text.rich(TextSpan(
-                  text: 'Overview',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                    fontSize: 25,
-                  ),
-                )),
+                Row(children: [
+                  Text.rich(TextSpan(
+                    text: 'Overview',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                      fontSize: 25,
+                    ),
+                  )),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 30),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: IconToggleButton(
+                          isSelected: isSelected,
+                          onPressed: () {
+                            setState(
+                              () {
+                                isSelected = !isSelected;
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  )
+                ]),
 
                 // ------
                 SizedBox(height: 30),
@@ -147,7 +169,7 @@ class _ArtViewPageState extends State<ArtViewPage> {
                 )),
                 SizedBox(height: 3),
                 Text.rich(TextSpan(
-                  text: '1616 - 1617',
+                  text: widget.art.date,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: Colors.black87,
@@ -158,7 +180,7 @@ class _ArtViewPageState extends State<ArtViewPage> {
                 // ------
                 SizedBox(height: 30),
                 Text.rich(TextSpan(
-                  text: 'Description',
+                  text: 'Artist Bio',
                   style: TextStyle(
                     fontWeight: FontWeight.normal,
                     color: Colors.black45,
@@ -167,17 +189,17 @@ class _ArtViewPageState extends State<ArtViewPage> {
                 )),
                 SizedBox(height: 3),
                 Text.rich(TextSpan(
-                  text: widget.art.description,
+                  text: widget.art.artistBio,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: Colors.black87,
                     fontSize: 16,
                   ),
                 )),
-                //---------
+                // ------
                 SizedBox(height: 30),
                 Text.rich(TextSpan(
-                  text: 'Country of origin',
+                  text: 'Medium',
                   style: TextStyle(
                     fontWeight: FontWeight.normal,
                     color: Colors.black45,
@@ -186,7 +208,26 @@ class _ArtViewPageState extends State<ArtViewPage> {
                 )),
                 SizedBox(height: 3),
                 Text.rich(TextSpan(
-                  text: 'Dutch',
+                  text: widget.art.medium,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black87,
+                    fontSize: 16,
+                  ),
+                )),
+                // ------
+                SizedBox(height: 30),
+                Text.rich(TextSpan(
+                  text: 'Dimensions',
+                  style: TextStyle(
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black45,
+                    fontSize: 14,
+                  ),
+                )),
+                SizedBox(height: 3),
+                Text.rich(TextSpan(
+                  text: widget.art.dimensions,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: Colors.black87,
@@ -212,10 +253,10 @@ class _ArtViewPageState extends State<ArtViewPage> {
                     fontSize: 16,
                   ),
                 )),
-                // ------
+                //---------
                 SizedBox(height: 30),
                 Text.rich(TextSpan(
-                  text: 'Medium',
+                  text: 'Credit',
                   style: TextStyle(
                     fontWeight: FontWeight.normal,
                     color: Colors.black45,
@@ -224,47 +265,59 @@ class _ArtViewPageState extends State<ArtViewPage> {
                 )),
                 SizedBox(height: 3),
                 Text.rich(TextSpan(
-                  text: 'Oil on canvas',
+                  text: widget.art.creditLine,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: Colors.black87,
                     fontSize: 16,
                   ),
                 )),
-                // ------
-                SizedBox(height: 30),
-                Text.rich(TextSpan(
-                  text: 'Dimensions',
-                  style: TextStyle(
-                    fontWeight: FontWeight.normal,
-                    color: Colors.black45,
-                    fontSize: 14,
-                  ),
-                )),
-                SizedBox(height: 3),
-                Text.rich(TextSpan(
-                  text: '51 3/4 x 39 1/4 in. (131.4 x 99.7 cm)',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black87,
-                    fontSize: 16,
-                  ),
-                )),
+
+                SizedBox(height: 60),
                 //------
-                SizedBox(height: 30),
-                Text.rich(TextSpan(
-                  text: 'Similar',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                    fontSize: 25,
-                  ),
-                )),
+                // SizedBox(height: 30),
+                // Text.rich(TextSpan(
+                //   text: 'Similar',
+                //   style: TextStyle(
+                //     fontWeight: FontWeight.bold,
+                //     color: Colors.black87,
+                //     fontSize: 25,
+                //   ),
+                // )),
               ],
             ),
           ),
         ),
       ]))
     ]));
+  }
+}
+
+class IconToggleButton extends StatelessWidget {
+  final bool isSelected;
+  final Function onPressed;
+  IconToggleButton({required this.isSelected, required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      child: IconButton(
+        iconSize: 30.0,
+        color: Colors.black87,
+        disabledColor: Colors.black87,
+        splashColor: Colors.red,
+        highlightColor: Colors.black87,
+        padding: EdgeInsets.all(5),
+        icon: Padding(
+            padding: EdgeInsets.zero,
+            child: isSelected == true
+                ? Icon(Icons.star_sharp)
+                : Icon(Icons.star_border_outlined)),
+        onPressed: () {
+          onPressed();
+        },
+      ),
+    );
   }
 }
