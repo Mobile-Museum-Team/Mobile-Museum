@@ -1,4 +1,4 @@
-import 'package:mobile_museum/model/art.dart';
+import 'package:mobile_museum/art.dart';
 import 'package:mobile_museum/logic/api/http_service.dart';
 import 'package:test/test.dart';
 

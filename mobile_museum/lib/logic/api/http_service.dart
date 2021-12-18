@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
-import 'package:mobile_museum/model/art.dart';
+import 'package:mobile_museum/art.dart';
 import 'package:html/parser.dart';
 
 class HttpService {
