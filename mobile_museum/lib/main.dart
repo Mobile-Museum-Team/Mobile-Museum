@@ -18,7 +18,11 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             //colorScheme: ColorScheme.fromSwatch(primarySwatch: Color(0x)),
             scaffoldBackgroundColor: Color(0xFFF2F4F3),
-            backgroundColor: Color(0xFFF2F4F3)),
+            backgroundColor: Color(0xFFF2F4F3),
+            pageTransitionsTheme: const PageTransitionsTheme(builders: {
+              TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+              TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+            })),
         //backgroundColor: Color(0xFF5F2F7F),
         title: 'Bottom Navigation Bar Tutorial',
         //home: Navigation(),

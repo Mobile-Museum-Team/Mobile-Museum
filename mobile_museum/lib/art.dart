@@ -5,8 +5,9 @@ class Art {
   final String endDate = "";
   final String date;
   final String author;
-  final String primaryImage;
+  String primaryImage;
   String description = "No description";
+  //final String json;
   //final String primaryImageSmall;
 
   //final List<String> tags;
@@ -16,11 +17,13 @@ class Art {
   factory Art.fromJson(Map<String, dynamic> js) {
     print("\t Responce got - ID: ${js["objectID"].toString()}");
     return Art(
-        js["objectID"].toString(),
-        js["title"] as String,
-        js['objectDate'] as String,
-        js['artistDisplayName'] as String,
-        //js["primaryImage"] as String,
-        js["primaryImageSmall"] as String);
+      js["objectID"].toString(),
+      js["title"] as String,
+      js['objectDate'] as String,
+      js['artistDisplayName'] as String,
+      //js["primaryImage"] as String,
+      js["primaryImageSmall"] as String,
+      //js["artistDisplayBio"] as String,
+    );
   }
 }
