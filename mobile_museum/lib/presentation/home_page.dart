@@ -1,24 +1,30 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_museum/logic/api/http_service.dart';
+import 'package:mobile_museum/logic/cubit/search_cubit.dart';
 import 'package:mobile_museum/presentation/art_item.dart';
 import 'package:mobile_museum/dummy_data.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile_museum/presentation/theme_colors.dart';
+import 'package:shimmer/shimmer.dart';
+
+import '../art.dart';
+
+import 'dart:io';
 
 final styleTags = [
   'Women',
   'Men',
   'Trees',
-  'Birds',
   'Portraits',
-  'Flowers',
+  'Saint',
   'Landscapes',
   'Buildings',
   'Horses',
   'Angels',
-  'Female Nudses',
+  'House',
   'Christ'
 ];
 
@@ -31,6 +37,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<Art> resList = DUMMY_DATA;
   void _incrementCounter() {
     setState(() {});
   }
@@ -128,11 +135,11 @@ class _MyHomePageState extends State<MyHomePage> {
                             if (index == 0) {
                               return InkWell(
                                 onTap: () {
-                                  // Navigator.of(context).push(
-                                  //   MaterialPageRoute(
-                                  //     builder: (context) => ArtViewPage(art: widget.art),
-                                  //   ),
-                                  // );
+                                  BlocProvider.of<SearchCubit>(context)
+                                      .startLoadFilters();
+                                  resList = DUMMY_DATA;
+                                  BlocProvider.of<SearchCubit>(context)
+                                      .stopLoadFilters();
                                   print("Container clicked");
                                 },
                                 child: Container(
@@ -157,10 +164,13 @@ class _MyHomePageState extends State<MyHomePage> {
                             } else {
                               return InkWell(
                                 onTap: () async {
-                                  //BlocProvider.of<SearchCubit>(context).startLoad();
+                                  BlocProvider.of<SearchCubit>(context)
+                                      .startLoadFilters();
                                   try {
-                                    var resLst = await httpService
+                                    var rresList = await httpService
                                         .searchObj(styleTags[index - 1]);
+                                    resList = rresList!;
+                                    sleep(Duration(seconds: 1));
                                   } on Exception catch (e) {
                                     showDialog(
                                         context: context,
@@ -175,17 +185,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                                     Navigator.pop(context);
                                                   },
                                                   child: Text('Close')),
-                                              // TextButton(
-                                              //   onPressed: () {
-                                              //     Navigator.pop(context);
-                                              //   },
-                                              //   child: Text('Reload'),
-                                              // )
                                             ],
                                           );
                                         });
                                   }
-                                  //BlocProvider.of<SearchCubit>(context).stopLoad();
+                                  BlocProvider.of<SearchCubit>(context)
+                                      .stopLoadFilters();
                                 },
                                 child: Container(
                                   margin: const EdgeInsets.symmetric(
@@ -214,48 +219,57 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ],
                 ),
-                /*Expanded(
-                  child: SliverGrid(
-                    gridDelegate:
-                        const SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent: 200,
-                            childAspectRatio: 2 / 2,
-                            crossAxisSpacing: 0,
-                            mainAxisSpacing: 0),
-                    delegate: SliverChildBuilderDelegate(
-                      (BuildContext context, int index) {
-                        DUMMY_DATA.map((artItem) => ArtItem(artItem)).toList();
-                      },
-                    ),
-                  ),
-                )*/
-                /*Expanded(
-                child: GridView(
-                  children:
-                      DUMMY_DATA.map((artItem) => ArtItem(artItem)).toList(),
+              ],
+            ),
+          ),
+          BlocBuilder<SearchCubit, SearchState>(
+            builder: (context, state) {
+              if (!state.progressActiveFilters) {
+                return SliverGrid(
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                       maxCrossAxisExtent: 200,
                       childAspectRatio: 2 / 2,
                       crossAxisSpacing: 0,
                       mainAxisSpacing: 0),
+                  delegate: SliverChildBuilderDelegate(
+                    (context, int index1) {
+                      var el = ArtItem(resList[index1]);
+                      return el;
+                    },
+                    childCount: resList.length,
+                  ),
+                );
+              }
+              return SliverGrid(
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 200,
+                    childAspectRatio: 2 / 2,
+                    crossAxisSpacing: 0,
+                    mainAxisSpacing: 0),
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index1) {
+                    return Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                      child: Container(
+                        //color: Colors.white, height: 180, width: 170),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.white,
+                              //color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  childCount: 16,
                 ),
-              )*/
-              ],
-            ),
-          ),
-          SliverGrid(
-            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 200,
-                childAspectRatio: 2 / 2,
-                crossAxisSpacing: 0,
-                mainAxisSpacing: 0),
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-                return ArtItem(DUMMY_DATA[index]);
-                DUMMY_DATA.map((artItem) => ArtItem(artItem)).toList();
-              },
-              childCount: 15,
-            ),
+              );
+            },
           ),
         ],
       ),

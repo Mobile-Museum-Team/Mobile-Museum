@@ -1,11 +1,30 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_museum/presentation/favorites.dart';
 import 'package:mobile_museum/presentation/home_page.dart';
 import 'package:mobile_museum/presentation/search_requests.dart';
 import 'package:mobile_museum/presentation/theme_colors.dart';
 import 'package:shimmer/shimmer.dart';
+
+import 'cubit/search_cubit.dart';
+
+class Helper extends InheritedWidget {
+  int ind = 0;
+
+  Helper({
+    Key? key,
+    required this.ind,
+    required Widget child,
+  }) : super(key: key, child: child);
+
+  @override
+  bool updateShouldNotify(covariant InheritedWidget oldWidget) {
+    // TODO: implement updateShouldNotify
+    throw UnimplementedError();
+  }
+}
 
 class Navigation extends StatefulWidget {
   @override
@@ -24,9 +43,21 @@ class _NavigationState extends State<Navigation> {
     FindPage(title: 'Favorite'),
   ];
 
+  Helper getIndex(int index) {
+    BlocBuilder<SearchCubit, SearchState>(
+      builder: (context, state) {
+        if (state.progressActiveFilters || state.progressBarActive) {
+          return new Helper(ind: _selectedIndex, child: Column());
+        }
+        return new Helper(ind: index, child: Column());
+      },
+    );
+    return new Helper(ind: index, child: Column());
+  }
+
   void _onItemTap(int index) {
     setState(() {
-      _selectedIndex = index;
+      _selectedIndex = getIndex(index).ind;
     });
   }
 
