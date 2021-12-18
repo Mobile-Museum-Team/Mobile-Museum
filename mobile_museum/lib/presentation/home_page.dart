@@ -5,6 +5,7 @@ import 'package:mobile_museum/logic/api/http_service.dart';
 import 'package:mobile_museum/presentation/art_item.dart';
 import 'package:mobile_museum/dummy_data.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mobile_museum/presentation/theme_colors.dart';
 
 final styleTags = [
   'Women',
@@ -39,21 +40,25 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xFFF2F4F3),
+      //color: Color(0xFFF2F4F3),
       child: CustomScrollView(
         slivers: <Widget>[
-          const SliverAppBar(
+          SliverAppBar(
             shadowColor: Colors.black,
-            shape: RoundedRectangleBorder(
+            //foregroundColor: Colors.white,
+            shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(
                 bottom: Radius.circular(25),
               ),
             ),
-            backgroundColor: Color(0xFF780116),
+            backgroundColor: MyColors.mainTextColor,
             floating: false,
             expandedHeight: 20.0,
-            flexibleSpace: FlexibleSpaceBar(
-              title: Text('Mobile Museum'),
+            flexibleSpace: const FlexibleSpaceBar(
+              title: Text(
+                'Mobile Museum',
+                style: TextStyle(color: Color(0xFFF2F4F3)),
+              ),
             ),
           ),
           SliverList(
@@ -66,14 +71,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       children: <Widget>[
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.fromLTRB(25, 55, 0, 25),
+                            padding: EdgeInsets.fromLTRB(25, 55, 0, 25),
                             child: Container(
-                              child: const Text.rich(
+                              child: Text.rich(
                                 TextSpan(
                                   text: 'Welcome \nto The Met\nMuseum of Art',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Color(0xFF780116),
+                                    color: MyColors.mainTextColor,
                                     fontSize: 25,
                                   ),
                                 ),
@@ -96,12 +101,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(60, 0, 25, 30),
                       child: Container(
-                        child: const Text.rich(
+                        child: Text.rich(
                           TextSpan(
                             text: 'Bring some culture to your phone',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Colors.black38,
+                              color: MyColors.popTextColor,
                               fontSize: 15,
                             ),
                           ),

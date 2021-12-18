@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_museum/presentation/favorites.dart';
 import 'package:mobile_museum/presentation/home_page.dart';
 import 'package:mobile_museum/presentation/search_requests.dart';
+import 'package:mobile_museum/presentation/theme_colors.dart';
 import 'package:shimmer/shimmer.dart';
 
 class Navigation extends StatefulWidget {
@@ -32,14 +33,12 @@ class _NavigationState extends State<Navigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.orange[300],
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-              backgroundColor: Color(0xFFBC8F8F),
               icon: Icon(
                 Icons.account_balance,
               ),
@@ -53,7 +52,7 @@ class _NavigationState extends State<Navigation> {
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTap,
-        fixedColor: Color(0xFF780116),
+        fixedColor: MyColors.mainTextColor,
         selectedFontSize: 13.0,
         unselectedFontSize: 13.0,
       ),

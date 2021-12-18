@@ -12,7 +12,7 @@ class HttpService {
   String lastquery = "";
   List<Art> resList = [];
 
-  Future<Art> getObj(int id) async {
+  static Future<Art> getObj(int id) async {
     final Uri url = Uri.https(
       'collectionapi.metmuseum.org',
       'public/collection/v1/objects/' + id.toString(),

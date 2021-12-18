@@ -28,7 +28,7 @@ class ArtItemState extends State<ArtItem> {
               decoration: BoxDecoration(
                 boxShadow: const [
                   BoxShadow(
-                    color: Colors.black12,
+                    color: Colors.black26,
                     blurRadius: 5,
                     offset: Offset(2, 5),
                   ),

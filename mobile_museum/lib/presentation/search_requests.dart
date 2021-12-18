@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_museum/art.dart';
 import 'package:mobile_museum/logic/api/http_service.dart';
 import 'package:mobile_museum/logic/cubit/search_cubit.dart';
+import 'package:mobile_museum/presentation/theme_colors.dart';
 import 'package:shimmer/shimmer.dart';
 
 import 'art_item.dart';
@@ -43,7 +44,7 @@ class _SearchPageState extends State<SearchPage> {
               bottom: Radius.circular(25),
             ),
           ),
-          backgroundColor: Color(0xFFBC8F8F),
+          backgroundColor: MyColors.mainTextColor,
           title: const Text("Search Tester"),
         ),
         //body: BlocBuilder<SearchCubit, SearchState>(
@@ -106,7 +107,9 @@ class _SearchPageState extends State<SearchPage> {
                         }
                         BlocProvider.of<SearchCubit>(context).stopLoad();
                       },
-                      child: Container(child: Icon(Icons.search)))
+                      child: Container(
+                          child: Icon(Icons.search,
+                              color: MyColors.mainTextColor)))
                 ],
               ),
               const SizedBox(
