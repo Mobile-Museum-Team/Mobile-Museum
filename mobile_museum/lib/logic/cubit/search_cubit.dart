@@ -16,19 +16,4 @@ class SearchCubit extends Cubit<SearchState> {
     var newState = SearchState(progressBarActive: false);
     emit(newState);
   }
-
-  void startLoadFilters() {
-    var newState = SearchState(
-        progressBarActive: state.progressBarActive,
-        progressActiveFilters: true);
-    emit(newState);
-  }
-
-  void stopLoadFilters() {
-    var newState = SearchState(
-        progressBarActive: state.progressBarActive,
-        progressActiveFilters: false);
-    newState.filtersView = true;
-    emit(newState);
-  }
 }

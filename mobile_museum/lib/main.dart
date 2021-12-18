@@ -5,10 +5,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_museum/logic/cubit/search_cubit.dart';
 import 'package:mobile_museum/logic/navigation.dart';
 import 'package:mobile_museum/presentation/theme_provider.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-import 'art.dart';
+import 'model/art.dart';
 
-void main() {
+const String ART_BOX = "art";
+late final Box<Art> artBox;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized;
+  await Hive.initFlutter();
+  Hive.registerAdapter(ArtAdapter());
+  artBox = await Hive.openBox<Art>(ART_BOX);
+  // await artBox.deleteFromDisk();
   runApp(MyApp());
 }
 
@@ -16,7 +26,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
         theme: MyThemes.lightTheme,
         darkTheme: MyThemes.darkTheme,
         //theme: ThemeData(

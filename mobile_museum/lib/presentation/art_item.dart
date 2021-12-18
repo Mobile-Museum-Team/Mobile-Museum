@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_museum/presentation/art_view_page.dart';
-import '../art.dart';
+import '../model/art.dart';
 
 class ArtItem extends StatefulWidget {
   final Art art;
@@ -24,24 +24,21 @@ class ArtItemState extends State<ArtItem> {
         width: 170,
         child: Stack(
           children: [
-            Hero(
-              tag: widget.art.primaryImage,
-              child: Container(
-                decoration: BoxDecoration(
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 5,
-                      offset: Offset(2, 5),
-                    ),
-                  ], //color: Colors.black,
-                  image: DecorationImage(
-                    image:
-                        new CachedNetworkImageProvider(widget.art.primaryImage),
-                    fit: BoxFit.cover,
+            Container(
+              decoration: BoxDecoration(
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 5,
+                    offset: Offset(2, 5),
                   ),
-                  borderRadius: BorderRadius.circular(20),
+                ], //color: Colors.black,
+                image: DecorationImage(
+                  image:
+                      new CachedNetworkImageProvider(widget.art.primaryImage),
+                  fit: BoxFit.cover,
                 ),
+                borderRadius: BorderRadius.circular(20),
               ),
             ), // Handle your callback
             //Positioned.fill(

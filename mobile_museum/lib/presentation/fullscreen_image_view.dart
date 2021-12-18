@@ -15,7 +15,7 @@ class _FullsreenImageViewState extends State<FullsreenImageView> {
     return Scaffold(
       body: Hero(
         transitionOnUserGestures: true,
-        tag: widget.link,
+        tag: -1,
         child: Dismissible(
           direction: DismissDirection.vertical,
           key: const Key('key'),
