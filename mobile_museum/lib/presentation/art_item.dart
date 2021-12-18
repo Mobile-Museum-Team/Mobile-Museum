@@ -20,73 +20,75 @@ class ArtItemState extends State<ArtItem> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(10.0),
-      child: Container(
-        height: 180,
-        width: 170,
-        child: Stack(
-          children: [
-            Hero(
-              tag: widget.art.primaryImage,
-              child: Container(
-                decoration: BoxDecoration(
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 5,
-                      offset: Offset(2, 5),
+      child: Hero(
+        tag: widget.art.primaryImage,
+        child: Material(
+          child: Container(
+            height: 180,
+            width: 170,
+            child: Stack(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: 5,
+                        offset: Offset(2, 5),
+                      ),
+                    ], //color: Colors.black,
+                    image: DecorationImage(
+                      image: new CachedNetworkImageProvider(
+                          widget.art.primaryImage),
+                      fit: BoxFit.cover,
                     ),
-                  ], //color: Colors.black,
-                  image: DecorationImage(
-                    image:
-                        new CachedNetworkImageProvider(widget.art.primaryImage),
-                    fit: BoxFit.cover,
+                    borderRadius: BorderRadius.circular(20),
                   ),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
-            ), // Handle your callback
-            //Positioned.fill(
-            InkWell(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => ArtViewPage(art: widget.art),
-                  ),
-                );
-                print("Container clicked");
-              },
-              child: Container(
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.black,
-                      Colors.transparent,
-                      Colors.transparent,
-                      Colors.black
-                    ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    stops: [0, 0, 0.7, 1],
-                  ),
-                ),
-                child: Align(
-                  alignment: Alignment.bottomRight,
+                ), // Handle your callback
+                //Positioned.fill(
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ArtViewPage(art: widget.art),
+                      ),
+                    );
+                    print("Container clicked");
+                  },
                   child: Container(
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Text(
-                        widget.art.title,
-                        style: TextStyle(color: Colors.white),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.black,
+                          Colors.transparent,
+                          Colors.transparent,
+                          Colors.black
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        stops: [0, 0, 0.7, 1],
+                      ),
+                    ),
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: Container(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text(
+                            widget.art.title,
+                            style: TextStyle(color: Colors.white),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                          ),
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

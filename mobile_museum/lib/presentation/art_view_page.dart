@@ -35,7 +35,6 @@ class _ArtViewPageState extends State<ArtViewPage> {
           floating: false,
           stretch: true,
           expandedHeight: 450.0,
-          leadingWidth: 0,
           flexibleSpace: Stack(children: [
             Positioned(
               child: InkWell(
